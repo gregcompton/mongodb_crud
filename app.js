@@ -11,6 +11,8 @@ app.get('/', (req,res)=>{
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+
+// READ
 app.get('/getTodos', (req,res)=>{
   db.getDB().collection(collection).find({}).toArray((err,documents)=>{
     if(err){
@@ -23,6 +25,8 @@ app.get('/getTodos', (req,res)=>{
   });
 });
 
+
+// UPDATE
 app.put('/:id', (req,res)=>{
   const todoID = req.params.id;
   const userInput = req.body;
@@ -42,7 +46,7 @@ app.put('/:id', (req,res)=>{
   });
 });
 
-
+// CREATE
 app.post('/', (req,res)=>{
   const userInput = req.body;
   db.getDB().collection(collection).insertOne(userInput,(err,result)=>{
@@ -55,7 +59,19 @@ app.post('/', (req,res)=>{
   });
 });
 
+//DELETE
+app.delete('/:id', (req,res)=>{
+  const todoID = req.params.id;
 
+  db.getDB().collection(collection).findOneAndDelete({_id : db.getPrimaryKey(todoID)}, (err,result)=>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      res.json(result);
+    }    
+  });
+});
 
 
 
