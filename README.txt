@@ -1,8 +1,14 @@
+video tutorial is here:
+NoobCoder
+Creating MongoDB CRUD Application from Scratch
+https://www.youtube.com/playlist?list=PLvTjg4siRgU1ucYFHJy1tkwFjf73D0fGa
+
 npm init -y
 npm install express
 npm install body-parser
 npm install path
 npm install mongo
+npm install joi
 
 
 go to bootstrap to get templates
