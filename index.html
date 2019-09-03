@@ -101,10 +101,16 @@
             }).then((response)=>{
               return response.json();
             }).then((data)=>{
-              if(data.ok == 1){
-                let todoIndex = $(`#${todoID}`);
-                todoIndex.html(data.value.todo);
-                resetToDosInput();
+              if(!data.error){
+                if(data.result.ok == 1){
+                  let todoIndex = $(`#${todoID}`);
+                  todoIndex.html(data.result.value.todo);
+                  resetToDosInput();
+                  displayMessage(true,data.msg);
+                }
+              }
+              else{
+                displayMessage(false,data.error.message);
               }
             });
           });

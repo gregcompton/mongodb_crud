@@ -34,21 +34,31 @@ app.get('/getTodos', (req,res)=>{
 
 
 // UPDATE
-app.put('/:id', (req,res)=>{
+app.put('/:id', (req,res,next)=>{
   const todoID = req.params.id;
   const userInput = req.body;
 
-  db.getDB().collection(collection).
-        findOneAndUpdate({_id : db.getPrimaryKey(todoID)},
-                        {$set: {todo : userInput.todo}},
-                        {returnOriginal :false},
-                        (err,result)=>{
+  Joi.validate(userInput, schema, (err,result)=>{
     if(err){
-      console.log('there was an error')
-      console.log(err);
+      const error = new Error("Invalid Input");
+      error.status = 400;
+      next(error);
     }
     else{
-      res.json(result);
+      db.getDB().collection(collection).
+            findOneAndUpdate({_id : db.getPrimaryKey(todoID)},
+                            {$set: {todo : userInput.todo}},
+                            {returnOriginal :false},
+                            (err,result)=>{
+        if(err){
+          const error = new Error("Failed to update ToDo Document");
+          error.status = 400;
+          next(error);
+        }
+        else{
+          res.json({result: result, msg : "Successfully updated Todo!", error : null});
+        }
+      });
     }
   });
 });
