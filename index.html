@@ -79,7 +79,12 @@
           fetch('/getTodos',{method : "get"}).then((response)=>{
             return response.json();
           }).then((data)=>{
-            displayTodos(data);
+            if(!data.error){
+              displayTodos(data);
+            }
+            else{
+              displayMessage(false,data.error.message);
+            }
           });
         }
 

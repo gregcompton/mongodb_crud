@@ -20,10 +20,12 @@ app.get('/', (req,res)=>{
 
 
 // READ
-app.get('/getTodos', (req,res)=>{
+app.get('/getTodos', (req,res,next)=>{
   db.getDB().collection(collection).find({}).toArray((err,documents)=>{
     if(err){
-      console.log(err);
+      const error = new Error("Failed to load Todo documents");
+      error.status = 400;
+      next(error);
     }
     else{
       //console.log(documents);
