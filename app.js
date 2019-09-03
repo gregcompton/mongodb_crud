@@ -19,7 +19,7 @@ app.get('/getTodos', (req,res)=>{
       console.log(err);
     }
     else{
-      console.log(documents);
+      //console.log(documents);
       res.json(documents);
     }
   });
@@ -69,7 +69,7 @@ app.delete('/:id', (req,res)=>{
     }
     else{
       res.json(result);
-    }    
+    }
   });
 });
 
