@@ -15,3 +15,5 @@ go to bootstrap to get templates
 https://getbootstrap.com/docs/4.3/getting-started/introduction/
 
 https://getbootstrap.com/docs/4.3/components/forms/#form-groups
+
+*** Next step is to deploy this app in the cloud
